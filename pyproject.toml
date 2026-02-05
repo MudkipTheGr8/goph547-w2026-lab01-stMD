@@ -6,9 +6,9 @@ build-backend = "setuptools.build_meta"
 name = "goph547lab00"
 version = "0.0.1"
 authors = [
-  { name="Brandon Karchewski", email="brandon.karchewski@ucalgary.ca" },
+  { name="Matthew Davidson", email="matthew.davidson2@ucalgary.ca" },
 ]
-description="A Python package for GOPH 547 Lab 0"
+description="A Python package for GOPH 547 Lab 1"
 readme = "README.md"
 requires-python = ">=3.8"
 dependencies = [
