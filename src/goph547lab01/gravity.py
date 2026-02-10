@@ -1,7 +1,7 @@
-# GOPH 547 Lab 01:
+# GOPH 547 Lab 01: forward modelling of corrected gravity data and the concepts of gravity potential and gravity effect.
 # Matthew Davidson UCID: 30182729
-# January 04, 2025
-
+# February 04, 2025
+# Description:
 # This file has two functions (gravity_potential_point() and gravity_effect_point())
 # that compute the gravity potential and vertical gravity effect due to a point mass
 # anomaly.
