@@ -8,6 +8,16 @@ import numpy as np
 from goph547lab01.gravity import gravity_potential_point, gravity_effect_point
 
 def test_gravity_potential_point():
+    """Tests the gravity_potential_point function by comparing its output to expected values for known inputs.
+    Parameters
+    ----------
+    None
+    
+    Returns
+    -------
+    None
+        Asserts that the computed gravitational potential matches the expected values for the test cases.
+    """
     # Test case 1: Simple case
     x = [0, 0, 0]
     xm = [0, 0, 1]
