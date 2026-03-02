@@ -24,7 +24,7 @@ Requirements:
 
 --> git clone https://github.com/MudkipTheGr8/goph547-w2026-lab01-stMD <--
 
---> cd goph547-w2026-lab00-stMD <--
+--> cd goph547-w2026-lab01-stMD <--
 
 2.) Setting Up the Virtual Environment/ Installing the Package A Virtual Environment in Windows:
 

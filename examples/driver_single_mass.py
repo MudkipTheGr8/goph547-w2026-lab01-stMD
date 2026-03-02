@@ -11,10 +11,21 @@ from goph547lab01.gravity import gravity_potential_point, gravity_effect_point
 
 
 def contour_plot_creation():
+    """Creates and saves contour plots of the gravitational potential (U) and vertical gravity effect (gz) for a single mass anomaly at different heights and grid spacings.
+    
+    Parameters
+    ----------
+    None
+    
+    Returns
+    -------
+    None
+        Saves figures to the "figures" directory with filenames indicating the grid spacing used."""
+
 
     # Variables:
-    # Mass anomaly = 10 million metric tonnes = 10^10kg
-    m = 1.0e10
+    # Mass anomaly = 10 million metric tonnes = 10^7kg
+    m = 1.0e7
     # Centroid at 0i + oj - 10k [m]
     xm = np.array([0.0, 0.0, -10.0])
     #Heights that are being computed at
@@ -47,9 +58,9 @@ def contour_plot_creation():
             # Calculation at each grid point
             for row in range (X.shape[0]):
                 for col in range (X.shape[1]):
-                    x = [X[row,col], Y[row,col], z]
-                    U_grid[row,col] = gravity_potential_point(x, xm, m)
-                    gz_grid[row,col] = gravity_effect_point(x, xm, m)
+                    x_survey = [X[row,col], Y[row,col], z]
+                    U_grid[row,col] = gravity_potential_point(x_survey, xm, m)
+                    gz_grid[row,col] = gravity_effect_point(x_survey, xm, m)
             
             # Minimum and maximum colorbar limit updates for U and gz
             U_min = min(U_min, U_grid.min())
@@ -69,7 +80,7 @@ def contour_plot_creation():
             lc = axes[i,0]
             contour_lc = lc.contourf(X, Y, U_grid, levels=20, cmap='viridis', vmin = U_min, vmax = U_max)
             lc.plot(X.flatten(), Y.flatten(), 'xk', markersize = 2)
-            plt.colorbar(contour_lc, ax = lc, label = 'Gravitational Potential (U) [J/kg (SI units)]')
+            plt.colorbar(contour_lc, ax = lc, label = 'Gravitational Potential (U) [J/kg]')
             lc.set_xlabel('x [m]')
             lc.set_ylabel('y [m]')
             lc.set_title(f'Gravitational Potential (U) at z = {z} m')
@@ -79,7 +90,7 @@ def contour_plot_creation():
             rc = axes[i,1]
             contour_rc = rc.contourf(X, Y, gz_grid, levels=20, cmap='viridis', vmin = gz_min, vmax = gz_max)
             rc.plot(X.flatten(), Y.flatten(), 'xk', markersize = 2)
-            plt.colorbar(contour_rc, ax = rc, label = 'Vertical Gravity Effect (gz) [m/s^2 (SI units)]')
+            plt.colorbar(contour_rc, ax = rc, label = 'Vertical Gravity Effect (gz) [m/s^2]')
             rc.set_xlabel('x [m]')
             rc.set_ylabel('y [m]')
             rc.set_title(f'Vertical Gravity Effect (gz) at z = {z} m')
@@ -88,7 +99,8 @@ def contour_plot_creation():
         # Figure title
         fig.suptitle(f'Gravitational Potential (U) and Vertical Gravity Effect (gz) for Mass Anomaly of {m:.1e} kg with Grid Spacing of {spacing} m')
 
-        plt.show()
+        plt.savefig(f"figures/single_mass_spacing_{int(spacing)}m.png", dpi = 150)
+        
 
 if __name__ == "__main__":
     contour_plot_creation()

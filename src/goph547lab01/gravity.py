@@ -9,7 +9,7 @@
 import numpy as np
 
 
-def gravity_potential_point(x, xm, m, G=6.67e-11):
+def gravity_potential_point(x, xm, m, G=6.674e-11):
     """ Compute the gravity potential due to a point mass.
     
     Parameters
@@ -50,7 +50,7 @@ def gravity_potential_point(x, xm, m, G=6.67e-11):
 
 
 
-def gravity_effect_point(x, xm, m, G=6.67e-11):
+def gravity_effect_point(x, xm, m, G=6.674e-11):
     """Compute the vertical gravity effect due to a point
     mass (positive downward).
 
@@ -85,7 +85,7 @@ def gravity_effect_point(x, xm, m, G=6.67e-11):
     dz = r[..., 2]
 
     # Compute vertical gravity effect gz.
-    gz = G * m * dz / (r_norm**3)
+    gz = -G * m * dz / (r_norm**3)
     return gz
 
 
