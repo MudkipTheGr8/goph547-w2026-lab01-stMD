@@ -37,6 +37,19 @@ grid_spacing = [5, 25]
 
 
 def x_y_grid(dx):
+    """Creates a grid of x and y coordinates from -100 to 100 meters with a specified spacing (dx).
+    Parameters
+    ----------
+    dx : float
+        Spacing between grid points in meters.
+    
+    Returns
+    -------
+    X : 2D array (ndarray)
+        X coordinates of the grid points.
+    Y : 2D array (ndarray)
+        Y coordinates of the grid points.
+    """
     x = np.arange(-100, 100 + dx, dx)
     y = np.arange(-100, 100 + dx, dx)
     X, Y = np.meshgrid(x, y)
@@ -44,6 +57,19 @@ def x_y_grid(dx):
 
 
 def one_mass(max_t=10_000):
+    """Generates a set of 5 masses and their locations that satisfy the constraints of having a total mass of 10 million metric tonnes, a center of mass at (0, 0, -10) m, and all masses located at or below -1 m in the z direction.
+    Parameters
+    ----------
+    max_t : int, optional, default=10_000
+        Maximum number of attempts to generate valid masses and locations before raising an error.
+
+    Returns
+    -------
+    masses : 1D array (ndarray)
+        Array of 5 mass values in kg.
+    locations : 2D array (ndarray)
+        Array of shape (5, 3) containing the x, y, z coordinates of each mass in meters.
+    """
 
     for i in range(max_t):
         four_masses = np.random.normal(U_m, sigma_m, size = 4)
@@ -89,6 +115,27 @@ def one_mass(max_t=10_000):
 
 
 def U_gz_calc(X, Y, z, masses, locations):
+    """ Calculates the gravity potential (U) and gravity effect (gz) at a grid of points defined by X, Y, and z due to a set of masses located at specified locations.
+    Parameters
+    ----------
+    X : 2D array (ndarray)
+        X coordinates of the grid points.
+    Y : 2D array (ndarray)
+        Y coordinates of the grid points.
+    z : float
+        Z coordinate of the grid points (constant for all points).
+    masses : 1D array (ndarray)
+        Array of mass values in kg.
+    locations : 2D array (ndarray)
+        Array of shape (5, 3) containing the x, y, z coordinates of each mass in meters.
+    
+    Returns
+    -------
+    U_total : 2D array (ndarray)
+        Gravity potential at each grid point due to all masses.
+    gz_total : 2D array (ndarray)
+        Gravity effect at each grid point due to all masses.
+    """
     Z = np.full_like(X, z, dtype=float)
     points = np.stack([X, Y, Z], axis=-1)
     U_total = np.zeros_like(X, dtype=float)
@@ -102,6 +149,22 @@ def U_gz_calc(X, Y, z, masses, locations):
 
 
 def plotting_set(set_index, masses, locations, dx):
+    """Generates contour plots of the gravity potential (U) and gravity effect (gz) for a given set of masses and their locations, and saves the figure as a PNG file.
+    Parameters
+    ----------
+    set_index : int
+        Index of the mass set (used for naming the output file).
+    masses : 1D array (ndarray)
+        Array of mass values in kg.
+    locations : 2D array (ndarray)
+        Array of shape (5, 3) containing the x, y, z coordinates of each mass in meters.
+    dx : float
+        Spacing between grid points in meters.
+    
+    Returns
+    -------
+    None
+        Saves a figure to the "figures" directory with a filename indicating the mass set index and grid spacing used."""
     x = np.arange(-100, 100 + dx, dx)
     y = np.arange(-100, 100 + dx, dx)
     X, Y = np.meshgrid(x, y)
